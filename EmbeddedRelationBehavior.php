@@ -17,8 +17,8 @@ use yii\db\ActiveRecord;
 class EmbeddedRelationBehavior extends Behavior
 {
     public $embeddedRelationNames = [];
-    public $changedRelationAttributes = [];
 
+    protected $changedRelationAttributes = [];
     protected $relationAttributes = [];
     protected $loadedRelations = [];
 
@@ -100,6 +100,11 @@ class EmbeddedRelationBehavior extends Behavior
         }
 
         return parent::canSetProperty($name, $checkVars);
+    }
+
+    public function getChangedRelationAttributes()
+    {
+        return $this->changedRelationAttributes;
     }
 
     protected function behaviorLoadRelation($relationName)
