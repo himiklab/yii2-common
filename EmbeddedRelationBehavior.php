@@ -42,7 +42,7 @@ class EmbeddedRelationBehavior extends Behavior
 
             foreach ($relationModel->safeAttributes() as $currentAttribute) {
                 if (isset($this->relationAttributes[$currentAttribute])) {
-                    throw new InvalidConfigException('Attribute name already exists.');
+                    throw new InvalidConfigException('Attribute name already exists in other relation.');
                 }
                 $this->relationAttributes[$currentAttribute] = [
                     'relation' => $currentRelationName,
@@ -72,7 +72,9 @@ class EmbeddedRelationBehavior extends Behavior
                 $this->behaviorLoadRelation($this->relationAttributes[$name]['relation']);
             }
 
-            if (!isset($this->changedRelationAttributes[$name]) && $this->relationAttributes[$name]['value'] != $value) {
+            if (!isset($this->changedRelationAttributes[$name]) &&
+                $this->relationAttributes[$name]['value'] != $value
+            ) {
                 $this->changedRelationAttributes[$name] = true;
             }
 
