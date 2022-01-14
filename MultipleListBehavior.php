@@ -129,11 +129,7 @@ class MultipleListBehavior extends Behavior
         $transaction = Yii::$app->db->beginTransaction();
         try {
             foreach ($this->relations as $relationName => $params) {
-                $values = $this->attributesValues[$relationName];
-                if (!\is_array($values)) {
-                    continue;
-                }
-
+                $values = $this->attributesValues[$relationName] ?: [];
                 /** @var \yii\db\ActiveQuery $relationQuery */
                 $relationQuery = $model->{'get' . $relationName}();
 
